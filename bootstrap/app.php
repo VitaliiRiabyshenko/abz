@@ -3,6 +3,7 @@
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Application;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -26,19 +27,17 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->renderable(function (NotFoundHttpException $e, $request) {
-            if ($request->is('api/*')) {
-                if ($e->getPrevious() instanceof ModelNotFoundException) {
-                    $modelName = class_basename($e->getPrevious()->getModel());
-                    return response()->json([
-                        'success' => false,
-                        'message' => Str::headline($modelName) . " not found"
-                    ], 404);
-                }
+            if ($e->getPrevious() instanceof ModelNotFoundException) {
+                $modelName = class_basename($e->getPrevious()->getModel());
                 return response()->json([
                     'success' => false,
-                    'message' => $e->getMessage() ? $e->getMessage() : 'Page not found'
+                    'message' => Str::headline($modelName) . " not found"
                 ], 404);
             }
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage() ? $e->getMessage() : 'Page not found'
+            ], 404);
         });
         $exceptions->respond(function (Response $response) {
             if ($response->getStatusCode() === 403) {
@@ -52,17 +51,22 @@ return Application::configure(basePath: dirname(__DIR__))
                 return response()->json([
                     'success' => false,
                     'message' => 'Something went wrong'
-                ], 403);
+                ], 500);
             }
 
             return $response;
         });
         $exceptions->renderable(function (AuthenticationException $e, $request) {
-            if ($request->is('api/*')) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Unauthorized'
-                ], 401);
-            }
+            return response()->json([
+                'success' => false,
+                'message' => 'Unauthorized'
+            ], 401);
+        });
+        $exceptions->renderable(function (ValidationException  $e, $request) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'fails' => $e->errors(),
+            ], 422);
         });
     })->create();
