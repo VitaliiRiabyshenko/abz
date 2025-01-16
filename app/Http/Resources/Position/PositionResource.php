@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources\Position;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\BaseResource;
 
-class PositionResource extends JsonResource
+class PositionResource extends BaseResource
 {
     /**
      * Transform the resource into an array.
