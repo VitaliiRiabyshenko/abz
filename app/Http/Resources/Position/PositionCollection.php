@@ -1,24 +1,21 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Position;
 
 use App\Http\Resources\BaseCollection;
 
-class TokenResource extends BaseCollection
+class PositionCollection extends BaseCollection
 {
-    public static $wrap = 'token';
-
+    public static $wrap = 'positions';
     /**
-     * Transform the resource into an array.
+     * Transform the resource collection into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
-        return [
-            'token' => $this->token
-        ];
+        return parent::toArray($request);
     }
 
     public function with($request)

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\TokenController;
+use App\Http\Controllers\Api\V1\PositionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +16,6 @@ use App\Http\Controllers\Api\V1\TokenController;
 */
 
 Route::prefix('/v1')->group(function () {
-    Route::get('/token', [TokenController::class, '__invoke']);
+    Route::get('/token', TokenController::class);
+    Route::get('/positions', PositionController::class);
 });
