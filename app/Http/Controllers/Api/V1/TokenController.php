@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Services\TokenService;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\TokenResource;
+use App\Http\Resources\Token\TokenResource;
 
 class TokenController extends Controller
 {

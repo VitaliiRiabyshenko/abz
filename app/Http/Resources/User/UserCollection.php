@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Resources\Position;
+namespace App\Http\Resources\User;
 
 use App\Http\Resources\BaseResourceCollection;
 
-class PositionCollection extends BaseResourceCollection
+class UserCollection extends BaseResourceCollection
 {
-    public static $wrap = 'positions';
+    public static $wrap = 'users';
     /**
      * Transform the resource collection into an array.
      *

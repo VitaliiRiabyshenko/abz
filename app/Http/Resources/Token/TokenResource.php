@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Token;
 
-use App\Http\Resources\BaseCollection;
+use App\Http\Resources\BaseResource;
 
-class TokenResource extends BaseCollection
+class TokenResource extends BaseResource
 {
     public static $wrap = 'token';
 

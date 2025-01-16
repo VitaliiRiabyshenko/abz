@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
 
-class BaseCollection extends ResourceCollection
+class BaseResource extends JsonResource
 {
     public function with($request)
     {

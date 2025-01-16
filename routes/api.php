@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\APITokenIsValid;
+use App\Http\Controllers\Api\V1\UserController;
 use App\Http\Controllers\Api\V1\TokenController;
 use App\Http\Controllers\Api\V1\PositionController;
 
@@ -18,4 +20,8 @@ use App\Http\Controllers\Api\V1\PositionController;
 Route::prefix('/v1')->group(function () {
     Route::get('/token', TokenController::class);
     Route::get('/positions', PositionController::class);
+
+    Route::get('/users', [UserController::class, 'index']);
+    Route::post('/users', [UserController::class, 'store'])->middleware(APITokenIsValid::class);
+    Route::get('/users/{id}', [UserController::class, 'show']);
 });
