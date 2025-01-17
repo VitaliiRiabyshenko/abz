@@ -4,17 +4,14 @@ namespace App\Http\Services;
 
 use App\Models\Token;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Cookie;
 
 class TokenService
 {
-    public function getToken()
+    public function getToken($bearerToken)
     {
-        $client_session = Cookie::get('laravel_session');
-
-        $token = Token::whereNotNull('session')
-            ->when($client_session, function ($q) use ($client_session) {
-                return $q->where('session', $client_session);
+        $token = Token::whereNotNull('token')
+            ->when($bearerToken, function ($q) use ($bearerToken) {
+                return $q->where('token', $bearerToken);
             })
             ->whereRaw("TIMESTAMPDIFF(MINUTE, expired_at, UTC_TIMESTAMP()) < 40")
             ->where('used', 0)
@@ -27,7 +24,6 @@ class TokenService
 
             $token = Token::create([
                 'token' => $str,
-                'session' => $client_session,
                 'expired_at' => now()->addMinutes(40),
             ]);
         }
