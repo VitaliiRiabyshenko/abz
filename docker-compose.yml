@@ -30,10 +30,10 @@ services:
       - ./tmp/db:/var/lib/mysql
       - ./_docker/mysql/my.cnf:/etc/mysql/my.cnf
     environment:
-        MYSQL_DATABASE: abz
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_USER: admin
-        MYSQL_PASSWORD: admin
+        MYSQL_DATABASE: ${DB_DATABASE}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_USER}
     ports:
       - "8101:3306"
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
@@ -50,9 +50,9 @@ services:
       - 8877:80
     environment:
       PMA_HOST: db
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_USER}
     networks:
       - app-network
     container_name: abz_phpmyadmin
