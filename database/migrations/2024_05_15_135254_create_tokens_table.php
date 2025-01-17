@@ -15,7 +15,6 @@ class CreateTokensTable extends Migration
     {
         Schema::create('tokens', function (Blueprint $table) {
             $table->id();
-            $table->text('session', 64)->nullable();
             $table->boolean('used')->default(0);
             $table->string('token', 64)->unique();
             $table->timestamp('expired_at');

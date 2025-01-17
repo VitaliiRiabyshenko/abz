@@ -10,6 +10,6 @@ class Token extends Model
     use HasFactory;
 
     protected $fillable = [
-        'token', 'used', 'session', 'expired_at'
+        'token', 'used', 'expired_at'
     ];
 }

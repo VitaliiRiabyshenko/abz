@@ -22,7 +22,8 @@ class UserResource extends BaseResource
             'phone' => $this->phone,
             'position' => $this->position?->name,
             'position_id' => $this->position_id,
-            'image' => public_path($this->image),
+            'registration_timestamp' => $this->created_at->timestamp,
+            'image' => asset($this->image),
         ];
     }
 
